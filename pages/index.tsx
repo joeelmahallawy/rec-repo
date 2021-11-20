@@ -11,17 +11,21 @@ import {
   Input,
   Slide,
   ScaleFade,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { HiSwitchHorizontal } from "react-icons/hi";
+import getTranslation from "../helpers/getTranslation";
 import toggleLanguage from "../helpers/toggleLanguage";
 import { Query } from "../interfaces/types";
 
 const IndexPage = () => {
+  const toast = useToast();
   const [query, Setquery] = useState<Query>({
     translateFrom: "English",
     translateTo: "Mohawk",
     word: "",
+    translatedWord: "",
   });
   const [currState, toggleCurrState] = useState(true);
 
@@ -61,22 +65,24 @@ const IndexPage = () => {
             placeholder="Translated word here..."
             isReadOnly={true}
             w="250px"
-          ></Input>
+            isDisabled
+            value={query?.translatedWord}
+          />
         </Flex>
         <Center bg="black">
           <Button
-            onClick={async () => {
-              const headerToSend = {
-                translateFrom: query.translateFrom,
-                translateTo: query.translateTo,
-                word: query.word,
-              };
-              const res = await fetch("/api/mongo", {
-                method: "GET",
-                headers: headerToSend,
-              });
-              const data = await res.text();
-            }}
+            onClick={
+              () => {
+                getTranslation(query, Setquery, toast);
+                console.log("updated query", query);
+              }
+              // TODO:TODO:
+              // fetch("/api/mongo", {
+              //   body: JSON.stringify({
+              //     //
+              //   }),
+              // });
+            }
           >
             Translate!
           </Button>

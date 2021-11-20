@@ -32,7 +32,7 @@ async function getWordFromDB(
 ) {
   const { translatefrom, translateto, word }: any = req.headers;
   const translatedText = await DB.findOne({ [translatefrom]: word });
-  res.json(translatedText[translateto]);
+  res.json({ translatedText });
 }
 
 async function postWordToDB(

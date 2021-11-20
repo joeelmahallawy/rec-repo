@@ -36,8 +36,8 @@ const IndexPage = () => {
           Indigenous Translation
         </Text>
       </Center>
-      <Box bg="red" mt="5%">
-        <Flex bg="blue" justifyContent="space-around">
+      <Box mt="5%">
+        <Flex justifyContent="space-evenly">
           {toggleLanguage(currState, query, Setquery)}
           <IconButton
             aria-label="Switch languages"
@@ -50,10 +50,11 @@ const IndexPage = () => {
           />
           {toggleLanguage(!currState, query, Setquery)}
         </Flex>
-        <Flex bg="red" justifyContent="space-around" m="5%">
+        <Flex justifyContent="space-around" m="5%">
           <Input
             placeholder="Enter word here..."
-            w="250px"
+            w="300px"
+            mr="15%"
             onChange={(e) => {
               Setquery({ ...query, word: e.currentTarget.value });
               // console.log(e.currentTarget.value);
@@ -64,12 +65,8 @@ const IndexPage = () => {
           <Input
             placeholder="Translated word here..."
             isReadOnly={true}
-            w="250px"
-            isDisabled
-            value={query?.translatedWord}
-          />
         </Flex>
-        <Center bg="black">
+        <Center>
           <Button
             onClick={
               () => {

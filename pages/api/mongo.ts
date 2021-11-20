@@ -40,11 +40,12 @@ async function postWordToDB(
   res: NextApiResponse,
   DB: Collection
 ) {
-  const { wordToAdd, definition, languageOfWord, languageOfDefinition } =
-    JSON.parse(req.body);
+  const { translateFrom, translateTo, word, translatedWord } = JSON.parse(
+    req.body
+  );
   await DB.insertOne({
-    [languageOfWord]: wordToAdd,
-    [languageOfDefinition]: definition,
+    [translateFrom]: word,
+    [translateTo]: translatedWord,
   });
   res.json({});
 }

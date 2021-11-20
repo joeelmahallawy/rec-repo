@@ -15,11 +15,18 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { HiSwitchHorizontal } from "react-icons/hi";
+import AddWordModal from "../components/addWordModal";
 import getTranslation from "../helpers/getTranslation";
 import toggleLanguage from "../helpers/toggleLanguage";
 import { Query } from "../interfaces/types";
 
 const IndexPage = () => {
+  const [postQuery, setPostQuery] = useState<Query>({
+    translateFrom: "",
+    translateTo: "",
+    word: "",
+    translatedWord: "",
+  });
   const toast = useToast();
   const [query, Setquery] = useState<Query>({
     translateFrom: "English",
@@ -57,10 +64,8 @@ const IndexPage = () => {
             mr="15%"
             onChange={(e) => {
               Setquery({ ...query, word: e.currentTarget.value });
-              // console.log(e.currentTarget.value);
             }}
           />
-          {console.log(query)}
 
           <Input
             placeholder="Translated word here..."
@@ -74,7 +79,6 @@ const IndexPage = () => {
             onClick={
               () => {
                 getTranslation(query, Setquery, toast);
-                console.log("updated query", query);
               }
               // TODO:TODO:
               // fetch("/api/mongo", {
@@ -87,7 +91,9 @@ const IndexPage = () => {
             Translate!
           </Button>
         </Center>
-        {/* TODO: TODO:*/}
+        <Center>
+          <AddWordModal query={postQuery} setQuery={setPostQuery} />
+        </Center>
       </Box>
     </Box>
   );

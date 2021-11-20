@@ -12,7 +12,7 @@ export default function toggleLanguage(
   return val ? (
     <Center w="250px">
       <ScaleFade initialScale={0.1} in={val}>
-        <Button>{query.translateFrom}</Button>
+        <Button w="250px">{query.translateFrom}</Button>
       </ScaleFade>
     </Center>
   ) : (

@@ -65,6 +65,9 @@ const IndexPage = () => {
           <Input
             placeholder="Translated word here..."
             isReadOnly={true}
+            w="300px"
+            value={query?.translatedWord}
+          />
         </Flex>
         <Center>
           <Button

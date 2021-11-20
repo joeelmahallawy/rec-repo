@@ -12,6 +12,19 @@ export default function toggleLanguage(
   return val ? (
     <Center w="250px">
       <ScaleFade initialScale={0.1} in={val}>
+        {/* <Button>{query.translateFrom}</Button> */}
+        <Select
+          onChange={(e) => {
+            setQuery({ ...query, translateFrom: e.currentTarget.value });
+          }}
+          defaultValue="English"
+          w="250px"
+        >
+          <option value="English">English</option>
+          <option value="Mohawk">Mohawk</option>
+          <option value="Cree">Cree</option>
+          <option value="Ojibway">Ojibway</option>
+        </Select>
       </ScaleFade>
     </Center>
   ) : (

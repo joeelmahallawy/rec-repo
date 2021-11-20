@@ -30,9 +30,9 @@ async function getWordFromDB(
   res: NextApiResponse,
   DB: Collection
 ) {
-  const { translateFrom, translateTo, word }: any = req.headers;
-  const translatedText = await DB.findOne({ [translateFrom]: word });
-  res.json({ translatedText });
+  const { translatefrom, translateto, word }: any = req.headers;
+  const translatedText = await DB.findOne({ [translatefrom]: word });
+  res.json(translatedText[translateto]);
 }
 
 async function postWordToDB(

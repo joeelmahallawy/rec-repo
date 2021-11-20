@@ -11,16 +11,11 @@ import {
   Text,
   Wrap,
   WrapItem,
- } from "@chakra-ui/react";
- import React, { useEffect, useState } from "react";
- 
-const IndexPage = () => {
-  return(
-    <>
-    <Text>HI</Text>
-    </>
-  );
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 
+const IndexPage = () => {
+  return <></>;
 };
 
 export default IndexPage;

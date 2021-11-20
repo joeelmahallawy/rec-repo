@@ -6,13 +6,12 @@ import {
   Heading,
   Icon,
   IconButton,
-  Image,
-  Progress,
   Text,
   Select,
   Input,
  } from "@chakra-ui/react";
  import React, { useEffect, useState } from "react";
+ import { HiSwitchHorizontal } from 'react-icons/hi';
 
 const IndexPage = () => {
   return(
@@ -24,15 +23,20 @@ const IndexPage = () => {
       <Center w="250px">
         <Text>English</Text>
       </Center>
+      <IconButton 
+        aria-label="Switch languages" 
+        icon={<HiSwitchHorizontal/>} 
+        size="lg"
+        borderRadius="25px"/>
       <Select w="250px">
-        <option value="Ind 1">Indigenous 1</option>
+        <option value="mohawk">Mohawk</option>
         <option value="Ind 2">Indigenous 2</option>
         <option value="Ind 3">Indigenous 3</option>
       </Select>
     </Flex>
     <Flex justifyContent="space-around" m="50px">
       <Input placeholder="English word here..." w="250px"></Input>
-      <Input placeholder="Indigenous word here..." isReadOnly={true} w="250px"></Input>
+      <Input placeholder="Translated word here..." isReadOnly={true} w="250px"></Input>
     </Flex>
     <Center>
       <Button>Translate!</Button>

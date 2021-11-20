@@ -19,7 +19,7 @@ function getState(val:boolean){
   return(val ? 
   <Center w="250px">
     <ScaleFade initialScale={0.1} in={val}>
-      <Button>English</Button>
+      <Button w="250px">English</Button>
     </ScaleFade> 
   </Center>
   :
@@ -30,11 +30,11 @@ function getState(val:boolean){
       <option value="Ojibway">Ojibway</option>
     </Select>
   </ScaleFade>
-  
   );
 }
 
 const IndexPage = () => {
+  const [input, setInput] = useState("");
   const [currState, toggleCurrState] = useState(true);
 
   return(
@@ -42,7 +42,7 @@ const IndexPage = () => {
     <Center bg="dodgerblue" h="275px">
       <Text color="white" fontSize={20}>Indigenous Translation</Text>
     </Center>
-    <Flex justifyContent="space-around" m="50px">
+    <Flex justifyContent="space-evenly" m="70px">
       {getState(currState)}
       <IconButton 
         aria-label="Switch languages" 
@@ -55,8 +55,8 @@ const IndexPage = () => {
       {getState(!currState)}
     </Flex>
     <Flex justifyContent="space-around" m="50px">
-      <Input placeholder="Enter word here..." w="250px"></Input>
-      <Input placeholder="Translated word here..." isReadOnly={true} w="250px"></Input>
+      <Input id="user" placeholder="Enter word here..." w="300px"></Input>
+      <Input placeholder="Translated word here..." isReadOnly={true} w="300px"></Input>
     </Flex>
     <Center>
       <Button>Translate!</Button>

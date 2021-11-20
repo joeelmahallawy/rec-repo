@@ -14,8 +14,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === "GET") {
       getWordFromDB(req, res, languages);
     }
+    if (req.method === "POST") {
+      postWordToDB(req, res, languages);
+    }
 
-    res.status(200).json({ fullname: "lol" });
+    // res.status(200).json({ fullname: "lol" });
   } catch (err) {
     res.status(404).json({ err: err.message });
   }
@@ -27,6 +30,21 @@ async function getWordFromDB(
   res: NextApiResponse,
   DB: Collection
 ) {
-  const { data, translatedLangauge } = JSON.parse(req.body);
-  const translatedText = await DB.findOne({});
+  const { translateFrom, translateTo, word }: any = req.headers;
+  const translatedText = await DB.findOne({ [translateFrom]: word });
+  res.json({ translatedText });
+}
+
+async function postWordToDB(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  DB: Collection
+) {
+  const { wordToAdd, definition, languageOfWord, languageOfDefinition } =
+    JSON.parse(req.body);
+  await DB.insertOne({
+    [languageOfWord]: wordToAdd,
+    [languageOfDefinition]: definition,
+  });
+  res.json({});
 }

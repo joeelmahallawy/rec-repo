@@ -19,6 +19,7 @@ import AddWordModal from "../components/addWordModal";
 import getTranslation from "../helpers/getTranslation";
 import toggleLanguage from "../helpers/toggleLanguage";
 import { Query } from "../interfaces/types";
+import KeyboardComponent from "../components/Keyboard";
 
 const IndexPage = () => {
   const [postQuery, setPostQuery] = useState<Query>({
@@ -35,7 +36,7 @@ const IndexPage = () => {
     translatedWord: "",
   });
   const [currState, toggleCurrState] = useState(true);
-
+  const [keyboardOn, toggleKeyboardOn] = useState(false);
   return (
     <Box>
       <Center id="nav-bar" bg="dodgerblue" h="275px">
@@ -94,6 +95,7 @@ const IndexPage = () => {
         <Center>
           <AddWordModal query={postQuery} setQuery={setPostQuery} />
         </Center>
+        
       </Box>
     </Box>
   );

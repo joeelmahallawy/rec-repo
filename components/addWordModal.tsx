@@ -13,12 +13,14 @@ import {
   FormLabel,
   Input,
   ModalFooter,
+  useToast,
 } from "@chakra-ui/react";
 import { Select } from "@chakra-ui/select";
 import React from "react";
 import { Query } from "../interfaces/types";
 
 const AddWordModal = ({ query, setQuery }: any) => {
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef();
   const finalRef = React.useRef();
@@ -90,10 +92,46 @@ const AddWordModal = ({ query, setQuery }: any) => {
               colorScheme="blue"
               mr={3}
               onClick={async () => {
-                fetch("/api/mongo", {
-                  method: "POST",
-                  body: JSON.stringify(query),
+                const headerToSend = {
+                  translateFrom: query.translateFrom,
+                  translateTo: query.translateTo,
+                  word: query.word,
+                };
+                const res = await fetch("/api/mongo", {
+                  method: "GET",
+                  headers: headerToSend,
                 });
+                const { translatedText } = await res.json();
+                if (!translatedText) {
+                  fetch("/api/mongo", {
+                    method: "POST",
+                    body: JSON.stringify(query),
+                  });
+                  setQuery({
+                    translateFrom: "",
+                    translateTo: "",
+                    word: "",
+                    translatedWord: "",
+                  });
+                  onClose();
+                  return toast({
+                    title: "Successfully added word!",
+                    // description:
+                    //   "We cannot define two different translations for the same word.",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                  });
+                } else {
+                  return toast({
+                    title: "Sorry, that word already exists!",
+                    description:
+                      "We cannot define two different translations for the same word.",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                  });
+                }
               }}
             >
               Add

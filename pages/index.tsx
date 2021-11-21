@@ -16,6 +16,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { HiSwitchHorizontal } from "react-icons/hi";
 import AddWordModal from "../components/addWordModal";
+import Legend from "../components/Legend";
 import getTranslation from "../helpers/getTranslation";
 import toggleLanguage from "../helpers/toggleLanguage";
 import { Query } from "../interfaces/types";
@@ -34,47 +35,52 @@ const IndexPage = () => {
     word: "",
     translatedWord: "",
   });
-  const [currState, toggleCurrState] = useState(true);
 
   return (
     <Box>
-      <Center id="nav-bar" bg="dodgerblue" h="275px">
-        <Text color="white" fontSize={20}>
-          Indigenous Translation
-        </Text>
-      </Center>
-      <Box mt="5%">
-        <Flex justifyContent="space-evenly">
-          {toggleLanguage(currState, query, Setquery)}
-          <IconButton
-            aria-label="Switch languages"
-            icon={<HiSwitchHorizontal />}
-            size="lg"
-            borderRadius="25px"
-            onClick={() => {
-              toggleCurrState(!currState);
-            }}
-          />
-          {toggleLanguage(!currState, query, Setquery)}
-        </Flex>
-        <Flex justifyContent="space-around" m="5%">
-          <Input
-            placeholder="Enter word here..."
-            w="300px"
-            mr="15%"
-            onChange={(e) => {
-              Setquery({ ...query, word: e.currentTarget.value });
-            }}
-          />
+      <Center
+        justifyContent="space-between"
+        id="nav-bar"
+        bg="dodgerblue"
 
-          <Input
-            placeholder="Translated word here..."
-            isReadOnly={true}
-            w="300px"
-            value={query?.translatedWord}
-          />
+        // h="20vh"
+      >
+        {/* <Box bg="red" w="100%"> */}
+        <Heading textAlign="right" w="135%" color="white" fontSize={20}>
+          Indigenous Translation
+        </Heading>
+        {/* </Box> */}
+        <Flex justifyContent="flex-end" w="100%">
+          <Legend />
         </Flex>
-        <Center>
+      </Center>
+      <Box>
+        <Center justifyContent="space-between" m="0 auto" mt="5%" w="70%">
+          <Box w="400px" p={5} justifyContent="space-around">
+            <ScaleFade initialScale={0.1} in={true}>
+              <Select
+                onChange={(e) => {
+                  Setquery({ ...query, translateFrom: e.currentTarget.value });
+                }}
+                defaultValue="English"
+              >
+                {console.log(query)}
+                <option value="English">English</option>
+                <option value="Mohawk">Mohawk</option>
+                <option value="Cree">Cree</option>
+                <option value="Ojibway">Ojibway</option>
+              </Select>
+            </ScaleFade>
+            <Input
+              placeholder="Enter word here..."
+              // w="300px"
+              // mr="15%"
+              onChange={(e) => {
+                Setquery({ ...query, word: e.currentTarget.value });
+              }}
+            />
+            {/*  */}
+          </Box>
           <Button
             onClick={
               () => {
@@ -90,8 +96,30 @@ const IndexPage = () => {
           >
             Translate!
           </Button>
+          <Box w="400px">
+            <ScaleFade initialScale={0.1} in={true}>
+              <Select
+                onChange={(e) => {
+                  Setquery({ ...query, translateTo: e.currentTarget.value });
+                }}
+                defaultValue="Mohawk"
+                // w="250px"
+              >
+                <option value="Mohawk">Mohawk</option>
+                <option value="English">English</option>
+                <option value="Cree">Cree</option>
+                <option value="Ojibway">Ojibway</option>
+              </Select>
+            </ScaleFade>
+            <Input
+              placeholder="Translated word here..."
+              isReadOnly={true}
+              value={query?.translatedWord}
+            />
+          </Box>
         </Center>
-        <Center>
+        {/*  */}
+        <Center mt={10} flexDir="column">
           <AddWordModal query={postQuery} setQuery={setPostQuery} />
         </Center>
       </Box>

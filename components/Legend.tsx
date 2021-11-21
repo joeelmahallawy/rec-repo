@@ -1,8 +1,17 @@
 const Legend = () => {
   return (
     <>
-      <table>
-        <tr>
+      <table
+        style={{
+          background: "transparent",
+
+          color: "white",
+          width: "25%",
+          border: "1px solid white",
+          margin: "5px",
+        }}
+      >
+        <tr style={{ borderBottom: "1px solid white", textAlign: "left" }}>
           <th>Mohawk</th>
           <th>Cree</th>
         </tr>

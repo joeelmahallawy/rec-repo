@@ -24,7 +24,6 @@ const AddWordModal = ({ query, setQuery }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef();
   const finalRef = React.useRef();
-  console.log("post query", query);
 
   return (
     <>

@@ -14,7 +14,7 @@ import {
   useToast,
   Collapse,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { HiSwitchHorizontal } from "react-icons/hi";
 import AddWordModal from "../components/addWordModal";
 import KeyboardComponent from "../components/Keyboard";
@@ -25,7 +25,6 @@ import { Query } from "../interfaces/types";
 
 const IndexPage = () => {
   const [keyboradOn, toggleKeyboardOn] = useState(false);
-  const [userInput, setUserInput] = useState("");
   const [postQuery, setPostQuery] = useState<Query>({
     translateFrom: "",
     translateTo: "",
@@ -42,9 +41,9 @@ const IndexPage = () => {
 
   return (
     <Box>
-      <Center justifyContent="space-between" id="nav-bar" bg="dodgerblue">
-        <Heading textAlign="right" w="135%" color="white" fontSize={20}>
-          Indigenous Translation
+      <Center justifyContent="space-between" id="nav-bar" bg="blue.500">
+        <Heading textAlign="right" w="120%" color="white" fontSize="30px">
+          Indilator
         </Heading>
 
         <Flex justifyContent="flex-end" w="100%">
@@ -61,7 +60,6 @@ const IndexPage = () => {
                 }}
                 defaultValue="English"
               >
-                {console.log(query)}
                 <option value="English">English</option>
                 <option value="Mohawk">Mohawk</option>
                 <option value="Cree">Cree</option>
@@ -70,6 +68,8 @@ const IndexPage = () => {
             </ScaleFade>
             <Input
               placeholder="Enter word here..."
+              // ref={wordInput.current}
+              value={query.word}
               onChange={(e) => {
                 Setquery({ ...query, word: e.currentTarget.value });
               }}
@@ -103,11 +103,9 @@ const IndexPage = () => {
             />
           </Box>
         </Center>
-        {/*  */}
-        <Center bg="red" mt={10} flexDir="column">
+        <Center mb={5} mt={10} gridGap={10}>
           <AddWordModal query={postQuery} setQuery={setPostQuery} />
-        </Center>
-        <Center>
+
           <Button
             onClick={() => {
               toggleKeyboardOn(!keyboradOn);
@@ -116,8 +114,13 @@ const IndexPage = () => {
             Keyboard
           </Button>
         </Center>
+
         <Collapse in={keyboradOn} style={{ zIndex: 5 }}>
-          <KeyboardComponent setInput={setUserInput} />
+          <KeyboardComponent
+            query={query}
+            setquery={Setquery}
+            wordInput={query.word}
+          />
         </Collapse>
       </Box>
     </Box>

@@ -2432,7 +2432,7 @@ react-remove-scroll@2.4.1:
 
 react-simple-keyboard@^3.3.37:
   version "3.3.37"
-  resolved "https://registry.npmjs.org/react-simple-keyboard/-/react-simple-keyboard-3.3.37.tgz"
+  resolved "https://registry.yarnpkg.com/react-simple-keyboard/-/react-simple-keyboard-3.3.37.tgz#a28824ca03bd96f21a9c2019c948ca4afc8c49d5"
   integrity sha512-8PO4QAzPSqKPVS84+gRNtSoADokl3qbYsaidXZiuT0A5AAv7NIxQZTr72kekwMRBZn+DZ0ZEP3ah0A2PBB10Zg==
 
 react-style-singleton@^2.1.0:

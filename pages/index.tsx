@@ -12,16 +12,20 @@ import {
   Slide,
   ScaleFade,
   useToast,
+  Collapse,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { HiSwitchHorizontal } from "react-icons/hi";
 import AddWordModal from "../components/addWordModal";
+import KeyboardComponent from "../components/Keyboard";
 import Legend from "../components/Legend";
 import getTranslation from "../helpers/getTranslation";
 import toggleLanguage from "../helpers/toggleLanguage";
 import { Query } from "../interfaces/types";
 
 const IndexPage = () => {
+  const [keyboradOn, toggleKeyboardOn] = useState(false);
+  const [userInput, setUserInput] = useState("");
   const [postQuery, setPostQuery] = useState<Query>({
     translateFrom: "",
     translateTo: "",
@@ -38,18 +42,11 @@ const IndexPage = () => {
 
   return (
     <Box>
-      <Center
-        justifyContent="space-between"
-        id="nav-bar"
-        bg="dodgerblue"
-
-        // h="20vh"
-      >
-        {/* <Box bg="red" w="100%"> */}
+      <Center justifyContent="space-between" id="nav-bar" bg="dodgerblue">
         <Heading textAlign="right" w="135%" color="white" fontSize={20}>
           Indigenous Translation
         </Heading>
-        {/* </Box> */}
+
         <Flex justifyContent="flex-end" w="100%">
           <Legend />
         </Flex>
@@ -73,26 +70,15 @@ const IndexPage = () => {
             </ScaleFade>
             <Input
               placeholder="Enter word here..."
-              // w="300px"
-              // mr="15%"
               onChange={(e) => {
                 Setquery({ ...query, word: e.currentTarget.value });
               }}
             />
-            {/*  */}
           </Box>
           <Button
-            onClick={
-              () => {
-                getTranslation(query, Setquery, toast);
-              }
-              // TODO:TODO:
-              // fetch("/api/mongo", {
-              //   body: JSON.stringify({
-              //     //
-              //   }),
-              // });
-            }
+            onClick={() => {
+              getTranslation(query, Setquery, toast);
+            }}
           >
             Translate!
           </Button>
@@ -103,7 +89,6 @@ const IndexPage = () => {
                   Setquery({ ...query, translateTo: e.currentTarget.value });
                 }}
                 defaultValue="Mohawk"
-                // w="250px"
               >
                 <option value="Mohawk">Mohawk</option>
                 <option value="English">English</option>
@@ -119,9 +104,21 @@ const IndexPage = () => {
           </Box>
         </Center>
         {/*  */}
-        <Center mt={10} flexDir="column">
+        <Center bg="red" mt={10} flexDir="column">
           <AddWordModal query={postQuery} setQuery={setPostQuery} />
         </Center>
+        <Center>
+          <Button
+            onClick={() => {
+              toggleKeyboardOn(!keyboradOn);
+            }}
+          >
+            Keyboard
+          </Button>
+        </Center>
+        <Collapse in={keyboradOn} style={{ zIndex: 5 }}>
+          <KeyboardComponent setInput={setUserInput} />
+        </Collapse>
       </Box>
     </Box>
   );

@@ -1,4 +1,4 @@
-import { toast, useToast } from "@chakra-ui/toast";
+import { toast, useToast } from "@chakra-ui/react";
 import { Query } from "../interfaces/types";
 
 export default async function getTranslation(
